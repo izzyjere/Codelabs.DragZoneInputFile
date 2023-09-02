@@ -1,9 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Title>Codelabs.DragZoneInputFile</Title>
+    <Authors>Wisdom Jere</Authors>
+    <Description>A simple to use drag zone input file for Blazor</Description>
+    <PackageProjectUrl>https://github.com/izzyjere/Codelabs.DragZoneInputFile</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/izzyjere/Codelabs.DragZoneInputFile</RepositoryUrl>
+    <PackageTags>Blazor, InputFile, Drag, Drop, FileUpload</PackageTags>
   </PropertyGroup>
 
 
