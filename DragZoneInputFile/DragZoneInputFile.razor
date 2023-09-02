@@ -1,0 +1,59 @@
+@using Microsoft.JSInterop;
+<div @ref="@dragZoneElement" @ondrop="HandleDragLeave" id='@($"dragZone-{id}")' style="@Style" class="@finalClass">
+    <InputFile style="position: absolute; width: 100%; height: 100%; opacity: 0;cursor: pointer;" @ondragenter="HandleDragEnter" @ondragleave="HandleDragLeave" OnChange="OnFileUpload" id='@($"inputFile-{id}")' multiple="@Multiple" accept="@FileFormats"></InputFile>
+    Drag and drop files here or click to upload.
+</div>
+@code {
+    private Lazy<Task<IJSObjectReference>>? moduleTask;
+    ElementReference dragZoneElement;
+    string id = Guid.NewGuid().ToString().Substring(0, 8);
+    string finalClass => string.Join(" ", _classNames);
+    [Parameter]
+    public string Style { get; set; }
+
+    [Parameter]
+    public string Class { get; set; }
+
+
+    [Parameter]
+    /// <summary>
+    /// The file formats that the user can select separated by commas
+    /// Example: .pdf,.doc,.docx
+    /// default is *
+    /// </summary>
+    public string FileFormats { get; set; }
+
+    [Parameter]
+    /// <summary>
+    /// If true, the user can select multiple files
+    /// default is false
+    /// </summary>
+    public bool Multiple { get; set; } = false;
+
+    private List<string> _classNames = new List<string>() { "drag-zone" };
+    [Parameter]
+    public EventCallback<InputFileChangeEventArgs> OnUpload { get; set; }
+
+    private async Task HandleDragLeave(DragEventArgs e)
+    {
+        _classNames.Remove("focus");
+        await InvokeAsync(StateHasChanged);
+    }
+    private async Task HandleDragEnter(DragEventArgs e)
+    {
+        _classNames.Add("focus");
+        await InvokeAsync(StateHasChanged);
+    }
+    async Task OnFileUpload(InputFileChangeEventArgs args)
+    {
+        await OnUpload.InvokeAsync(args);       
+    }
+    protected override void OnInitialized()
+    {
+        var parameterClassess = Class?.Split(" ");
+        if (parameterClassess != null)
+        {
+            _classNames.AddRange(parameterClassess);
+        }
+    }
+}

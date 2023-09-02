@@ -1,0 +1,26 @@
+.drag-zone {
+    border: 3px dashed black;
+    padding: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    position: relative;
+    height: 200px;
+    cursor: pointer !important;
+}
+
+.drag-zone:hover {
+    background-color: #D0DDD7;
+}
+
+.focus {
+    border: 3px dashed #0075F2;
+    border-radius: 8px;
+    padding: 0;
+    height: 200px;
+    background-color: #D0DDD7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
