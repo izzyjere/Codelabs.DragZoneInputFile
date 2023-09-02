@@ -1,0 +1,30 @@
+name: NuGet Publish
+
+on:
+  push:
+    branches:
+      - main  # Change to the branch you want to trigger the workflow on
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.x  # Change to your preferred .NET version
+
+      - name: Restore dependencies
+        run: dotnet restore DragZoneInputFile.csproj
+        working-directory: DragZoneInputFile/  # Removed leading /
+
+      - name: Build and publish package
+        run: dotnet pack DragZoneInputFile.csproj --configuration Release --output ./artifacts
+        working-directory: DragZoneInputFile/  # Removed leading /
+
+      - name: Publish to NuGet
+        run: dotnet nuget push ./DragZoneInputFile/artifacts/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
