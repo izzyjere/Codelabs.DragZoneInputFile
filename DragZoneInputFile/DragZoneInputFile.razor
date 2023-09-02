@@ -8,7 +8,7 @@
     string id = Guid.NewGuid().ToString().Substring(0, 8);
     string finalClass => string.Join(" ", _classNames);
     [Parameter]
-    public string Style { get => _style; set => _style = $"height: { _height} px; {value}"; }
+    public string Style { get => _style; set => _style = value; }
 
     string _style = $"height: {_height}px;";
 
