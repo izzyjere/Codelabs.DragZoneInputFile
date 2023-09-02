@@ -3,7 +3,7 @@ name: NuGet Publish
 on:
   push:
     branches:
-      - main  # Change to the branch you want to trigger the workflow on
+      - master  # Change to the branch you want to trigger the workflow on
 
 jobs:
   build:
