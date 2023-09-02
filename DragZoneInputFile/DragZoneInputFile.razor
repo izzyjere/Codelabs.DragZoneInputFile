@@ -4,16 +4,24 @@
     Drag and drop files here or click to upload.
 </div>
 @code {
-    private Lazy<Task<IJSObjectReference>>? moduleTask;
     ElementReference dragZoneElement;
     string id = Guid.NewGuid().ToString().Substring(0, 8);
     string finalClass => string.Join(" ", _classNames);
     [Parameter]
-    public string Style { get; set; }
+    public string Style { get => _style; set => _style = $"height: { _height} px; {value}"; }
+
+    string _style = $"height: {_height}px;";
 
     [Parameter]
     public string Class { get; set; }
 
+    [Parameter]
+    /// <summary>
+    /// The height of the drag zone in pixels
+    /// default is 200
+    public float Height { get=>_height; set => _height = value ; }
+
+    static float _height = 200;
 
     [Parameter]
     /// <summary>
