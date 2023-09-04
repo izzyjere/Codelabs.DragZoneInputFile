@@ -11,6 +11,7 @@
     <PackageProjectUrl>https://github.com/izzyjere/Codelabs.DragZoneInputFile</PackageProjectUrl>
     <RepositoryUrl>https://github.com/izzyjere/Codelabs.DragZoneInputFile</RepositoryUrl>
     <PackageTags>Blazor, InputFile, Drag, Drop, FileUpload</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
 
@@ -20,6 +21,17 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.20" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

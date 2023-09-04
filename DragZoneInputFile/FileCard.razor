@@ -19,11 +19,9 @@
     } 
     <span class="file-name">@File.Name</span>
 </div>
-@using Microsoft.JSInterop;
 @code {
     [Parameter]
-    public IBrowserFile File { get; set; }
-    Lazy<Task<IJSObjectReference>>? moduleTask;
+    public IBrowserFile File { get; set; }    
     string blob = string.Empty;
     FileType GetFileType() => Path.GetExtension(File.Name) switch
     {

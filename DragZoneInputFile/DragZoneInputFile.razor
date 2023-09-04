@@ -49,7 +49,7 @@
     private List<string> _classNames = new List<string>() { "drag-zone" };
     private List<IBrowserFile> _addedFiles = new List<IBrowserFile>();
     [Parameter]
-    public EventCallback<IEnumerable<IBrowserFile>> OnUpload { get; set; }
+    public EventCallback<IEnumerable<IBrowserFile>> OnUpload { get; set; }    
 
     private async Task HandleDragLeave(DragEventArgs e)
     {

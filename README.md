@@ -3,7 +3,7 @@ Drag Zone File Input Component
 # How to use
 Install the nuget package 
 ```shell
-NuGet\Install-Package DragZoneInputFile -Version 1.0.0
+NuGet\Install-Package DragZoneInputFile -Version 1.1.0
 ```
 # In your razor component
 ```razor
@@ -17,10 +17,10 @@ NuGet\Install-Package DragZoneInputFile -Version 1.0.0
 File Name: @_fileNames
 @code{
     string _fileNames = string.Empty;
-    private void OnFileUploadComplete(InputFileChangeEventArgs args)
+    private void OnFileUploadComplete(IEnumerable<IBrowserFile> files)
     {
         // Do something with the files
-        foreach (var file in args.GetMultipleFiles())
+        foreach (var file in files)
         {
             _fileNames += $"{file.Name}, ";
             //upload to server
