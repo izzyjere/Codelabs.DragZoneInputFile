@@ -1,0 +1,66 @@
+<div class="file-grid-item">
+    @switch (GetFileType())
+    {
+        case FileType.Image:
+            <img src="@blob" />
+            break;
+        case FileType.Pdf:
+            <img src="https://img.icons8.com/color/48/000000/pdf.png" />
+            break;
+        case FileType.Docx:
+            <img src="https://img.icons8.com/color/48/000000/ms-word.png" />
+            break;
+        case FileType.Spreadsheet:
+            <img src="https://img.icons8.com/color/48/000000/ms-excel.png" />
+            break;
+        default:
+            <img src="https://img.icons8.com/color/48/000000/file.png" />
+            break;
+    } 
+    <span class="file-name">@File.Name</span>
+</div>
+@using Microsoft.JSInterop;
+@code {
+    [Parameter]
+    public IBrowserFile File { get; set; }
+    Lazy<Task<IJSObjectReference>>? moduleTask;
+    string blob = string.Empty;
+    FileType GetFileType() => Path.GetExtension(File.Name) switch
+    {
+        ".pdf" => FileType.Pdf,
+        ".docx" => FileType.Docx,
+        ".xls" => FileType.Spreadsheet,
+        ".xlsx" => FileType.Spreadsheet,
+        ".csv" => FileType.Spreadsheet,
+        ".jpg" => FileType.Image,
+        ".png" => FileType.Image,
+        ".gif" => FileType.Image,
+        ".bmp" => FileType.Image,
+        _ => FileType.Other
+    };
+    async Task PreviewFile()
+    {
+        if(!(GetFileType()==FileType.Image))
+        {
+            return;
+        }
+        var fileStream = File.OpenReadStream(File.Size);
+        using var memoryStream = new MemoryStream();
+        await fileStream.CopyToAsync(memoryStream);
+        var base64 = Convert.ToBase64String(memoryStream.ToArray());
+        blob = $"data:{File.ContentType};base64,{base64}";
+        await InvokeAsync(StateHasChanged);
+    }
+    protected override async Task OnInitializedAsync()
+    {     
+        await PreviewFile();
+    }
+    enum FileType
+    {
+        Other,
+        Spreadsheet,
+        Image,
+        Pdf,
+        Docx
+    }
+}

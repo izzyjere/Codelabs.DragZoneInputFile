@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Title>Codelabs.DragZoneInputFile</Title>
     <Authors>Wisdom Jere</Authors>
+	<PackageVersion>1.1.0</PackageVersion>
     <Description>A simple to use drag zone input file for Blazor</Description>
     <PackageProjectUrl>https://github.com/izzyjere/Codelabs.DragZoneInputFile</PackageProjectUrl>
     <RepositoryUrl>https://github.com/izzyjere/Codelabs.DragZoneInputFile</RepositoryUrl>

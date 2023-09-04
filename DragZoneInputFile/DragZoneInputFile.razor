@@ -1,7 +1,13 @@
 @using Microsoft.JSInterop;
-<div @ref="@dragZoneElement" @ondrop="HandleDragLeave" id='@($"dragZone-{id}")' style="@Style" class="@finalClass">
-    <InputFile style="position: absolute; width: 100%; height: 100%; opacity: 0;cursor: pointer;" @ondragenter="HandleDragEnter" @ondragleave="HandleDragLeave" OnChange="OnFileUpload" id='@($"inputFile-{id}")' multiple="@Multiple" accept="@FileFormats"></InputFile>
-    Drag and drop files here or click to upload.
+<div @ref="@dragZoneElement" name="drag-zone" title="Drag and drop files here or click to upload." draggable="@draggable" @ondrop="HandleDragLeave" id='@($"dragZone-{id}")' style="@Style" class="@finalClass">
+    <InputFile style="position: absolute; width: 100%; height: 100%; opacity: 0;cursor: pointer;" draggable="@draggable" @ondragenter="HandleDragEnter" @ondragleave="HandleDragLeave" OnChange="OnFileUpload" id='@($"inputFile-{id}")' multiple="@Multiple" accept="@FileFormats"></InputFile>
+    <div class="@_fileViewClass">
+        @foreach (var file in _addedFiles)
+        {
+            <FileCard File="@file"></FileCard>
+        }
+    </div>
+    <div class="@_textClass">Drag and drop files here or click to upload.</div>
 </div>
 @code {
     ElementReference dragZoneElement;
@@ -9,8 +15,10 @@
     string finalClass => string.Join(" ", _classNames);
     [Parameter]
     public string Style { get => _style; set => _style = value; }
-
+    bool draggable = true;
     string _style = $"height: {_height}px;";
+    string _fileViewClass => _addedFiles.Any() ? "file-grid" : "file-grid d-none";
+    string _textClass => _addedFiles.Any() ? "d-none" : string.Empty;
 
     [Parameter]
     public string Class { get; set; }
@@ -19,7 +27,7 @@
     /// <summary>
     /// The height of the drag zone in pixels
     /// default is 200
-    public float Height { get=>_height; set => _height = value ; }
+    public float Height { get => _height; set => _height = value; }
 
     static float _height = 200;
 
@@ -39,8 +47,9 @@
     public bool Multiple { get; set; } = false;
 
     private List<string> _classNames = new List<string>() { "drag-zone" };
+    private List<IBrowserFile> _addedFiles = new List<IBrowserFile>();
     [Parameter]
-    public EventCallback<InputFileChangeEventArgs> OnUpload { get; set; }
+    public EventCallback<IEnumerable<IBrowserFile>> OnUpload { get; set; }
 
     private async Task HandleDragLeave(DragEventArgs e)
     {
@@ -52,9 +61,41 @@
         _classNames.Add("focus");
         await InvokeAsync(StateHasChanged);
     }
+    bool IsFileValid(string file)
+    {
+        if (string.IsNullOrEmpty(FileFormats))
+        {
+            return true;
+        }
+        return FileFormats.Split(",").Any(x => file.EndsWith(x));
+    }
     async Task OnFileUpload(InputFileChangeEventArgs args)
     {
-        await OnUpload.InvokeAsync(args);       
+        if (!Multiple)
+        {
+            var file = args.File;
+            if (!IsFileValid(file.Name))
+            {
+                return;
+            }
+            _addedFiles.Clear();
+            _addedFiles.Add(file);
+
+        }
+        else
+        {
+            foreach (var file in args.GetMultipleFiles())
+            {
+                if (!IsFileValid(file.Name))
+                {
+                    continue;
+                }
+                _addedFiles.Add(file);
+            }
+        }
+        if(_addedFiles.Any())
+        await OnUpload.InvokeAsync(_addedFiles);
+
     }
     protected override void OnInitialized()
     {
@@ -63,5 +104,5 @@
         {
             _classNames.AddRange(parameterClassess);
         }
-    }
+    }   
 }

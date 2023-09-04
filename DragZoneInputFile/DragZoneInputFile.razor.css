@@ -10,17 +10,25 @@
     cursor: pointer !important;
 }
 
-.drag-zone:hover {
-    background-color: #D0DDD7;
-}
+    .drag-zone:hover {
+        background-color: #F3F3F4;
+    }
 
 .focus {
-    border: 3px dashed #0075F2;
+    border: 2px dashed blue;
     border-radius: 8px;
     padding: 0;
     height: 200px;
-    background-color: #D0DDD7;
+    background-color: #FFEBC6;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.file-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(100px, 1fr));
+    grid-gap: 5px;
+    margin: 5px;
+    justify-items: flex-start;
 }
