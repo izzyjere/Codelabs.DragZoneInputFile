@@ -13,6 +13,9 @@
         case FileType.Spreadsheet:
             <img src="https://img.icons8.com/color/48/000000/ms-excel.png" />
             break;
+        case FileType.Powerpoint:
+            <img src="https://img.icons8.com/color/48/000000/ms-powerpoint.png" />
+            break;
         default:
             <img src="https://img.icons8.com/color/48/000000/file.png" />
             break;
@@ -30,6 +33,8 @@
         ".xls" => FileType.Spreadsheet,
         ".xlsx" => FileType.Spreadsheet,
         ".csv" => FileType.Spreadsheet,
+        ".ppt" => FileType.Powerpoint,
+        ".pptx" => FileType.Powerpoint,
         ".jpg" => FileType.Image,
         ".png" => FileType.Image,
         ".gif" => FileType.Image,
@@ -59,6 +64,7 @@
         Spreadsheet,
         Image,
         Pdf,
-        Docx
+        Docx,
+        Powerpoint
     }
 }
