@@ -27,4 +27,4 @@ jobs:
         working-directory: DragZoneInputFile/  # Removed leading /
 
       - name: Publish to NuGet
-        run: dotnet nuget push ./DragZoneInputFile/artifacts/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate
+        run: dotnet nuget push ./DragZoneInputFile/artifacts/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }} --force
