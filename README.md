@@ -3,7 +3,7 @@ Drag Zone File Input Component
 # How to use
 Install the nuget package 
 ```shell
-NuGet\Install-Package DragZoneInputFile -Version 8.0.0
+NuGet\Install-Package DragZoneInputFile -Version 8.0.1
 ```
 # In your razor component
 ```razor
