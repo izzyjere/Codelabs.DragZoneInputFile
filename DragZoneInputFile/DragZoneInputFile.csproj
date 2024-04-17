@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Title>Codelabs.DragZoneInputFile</Title>
     <Authors>Wisdom Jere</Authors>
-	<PackageVersion>8.0.1</PackageVersion>
+	<PackageVersion>8.0.4</PackageVersion>
     <Description>A simple to use drag zone input file for Blazor</Description>
     <PackageProjectUrl>https://github.com/izzyjere/Codelabs.DragZoneInputFile</PackageProjectUrl>
     <RepositoryUrl>https://github.com/izzyjere/Codelabs.DragZoneInputFile</RepositoryUrl>
@@ -20,11 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.4" />
   </ItemGroup>
 
   <ItemGroup>
