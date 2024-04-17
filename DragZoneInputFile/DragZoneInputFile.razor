@@ -1,4 +1,50 @@
 @using Microsoft.JSInterop;
+
+<HeadContent>
+    <style>
+        :root {
+            --drag-zone-bg-hover: #F3F3F4;
+            --drag-zone-bg-focus: #FFEBC6;
+            --drag-zone-border-focus: blue;
+        }
+
+        .drag-zone {
+            border: 3px dashed black;
+            padding: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            position: relative;
+            height: 200px;
+            cursor: pointer !important;
+        }
+
+            .drag-zone:hover {
+                background-color: var(--drag-zone-bg-hover);
+            }
+
+            .drag-zone.focus {
+                border: 2px dashed var(--drag-zone-border-focus);
+                border-radius: 8px;
+                padding: 0;
+                height: 200px;
+                background-color: var(--drag-zone-bg-focus);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .drag-zone .file-grid {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(100px, 1fr));
+                grid-gap: 5px;
+                margin: 5px;
+                justify-items: flex-start;
+            }
+
+    </style>
+</HeadContent>
 <div @ref="@dragZoneElement" name="drag-zone" title="Drag and drop files here or click to upload." draggable="@draggable" @ondrop="HandleDragLeave" id='@($"dragZone-{id}")' style="@Style" class="@finalClass">
     <InputFile style="position: absolute; width: 100%; height: 100%; opacity: 0;cursor: pointer;" draggable="@draggable" @ondragenter="HandleDragEnter" @ondragleave="HandleDragLeave" OnChange="OnFileUpload" id='@($"inputFile-{id}")' multiple="@Multiple" accept="@FileFormats"></InputFile>
     <div class="@_fileViewClass">
@@ -49,7 +95,7 @@
     private List<string> _classNames = new List<string>() { "drag-zone" };
     private List<IBrowserFile> _addedFiles = new List<IBrowserFile>();
     [Parameter]
-    public EventCallback<IEnumerable<IBrowserFile>> OnUpload { get; set; }    
+    public EventCallback<IEnumerable<IBrowserFile>> OnUpload { get; set; }
 
     private async Task HandleDragLeave(DragEventArgs e)
     {
@@ -93,8 +139,8 @@
                 _addedFiles.Add(file);
             }
         }
-        if(_addedFiles.Any())
-        await OnUpload.InvokeAsync(_addedFiles);
+        if (_addedFiles.Any())
+            await OnUpload.InvokeAsync(_addedFiles);
 
     }
     protected override void OnInitialized()
@@ -104,5 +150,5 @@
         {
             _classNames.AddRange(parameterClassess);
         }
-    }   
+    }
 }

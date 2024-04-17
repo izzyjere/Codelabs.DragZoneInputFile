@@ -28,3 +28,11 @@ File Name: @_fileNames
     }
 }
 ```
+# Customize various colors using following variables
+```css
+ :root {
+     --drag-zone-bg-hover: #F3F3F4;
+     --drag-zone-bg-focus: #FFEBC6;
+     --drag-zone-border-focus: blue;
+ }
+```
